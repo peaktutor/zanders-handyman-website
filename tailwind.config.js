@@ -4,6 +4,9 @@ module.exports = {
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
@@ -66,8 +69,10 @@ module.exports = {
         },
       },
       fontFamily: {
-        primary: ['Inter', 'sans-serif'],
-        accent: ['Orbitron', 'monospace'],
+        primary: ['var(--font-inter)', 'Inter', 'sans-serif'],
+        accent: ['var(--font-orbitron)', 'Orbitron', 'monospace'],
+        sans: ['var(--font-inter)', 'Inter', 'sans-serif'],
+        mono: ['var(--font-orbitron)', 'Orbitron', 'monospace'],
       },
       backgroundImage: {
         'gradient-primary': 'linear-gradient(135deg, var(--tw-colors-primary-600), var(--tw-colors-accent-500))',
@@ -96,6 +101,23 @@ module.exports = {
           '0%, 100%': { transform: 'translateY(0px)' },
           '50%': { transform: 'translateY(-10px)' },
         },
+        'subtle-float': {
+          '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+          '33%': { transform: 'translateY(-8px) rotate(0.5deg)' },
+          '66%': { transform: 'translateY(-4px) rotate(-0.5deg)' },
+        },
+        'elegant-glow': {
+          '0%, 100%': { 
+            boxShadow: '0 0 20px rgba(59, 130, 246, 0.15), 0 10px 40px rgba(0, 0, 0, 0.1)'
+          },
+          '50%': { 
+            boxShadow: '0 0 30px rgba(59, 130, 246, 0.25), 0 15px 50px rgba(0, 0, 0, 0.15)'
+          }
+        },
+        'luxury-pulse': {
+          '0%, 100%': { opacity: '1', transform: 'scale(1)' },
+          '50%': { opacity: '0.9', transform: 'scale(1.02)' },
+        },
       },
       animation: {
         'fade-in': 'fade-in 0.6s ease-out',
@@ -103,12 +125,18 @@ module.exports = {
         'slide-in-right': 'slide-in-right 0.6s ease-out',
         'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
         'float': 'float 3s ease-in-out infinite',
+        'subtle-float': 'subtle-float 6s ease-in-out infinite',
+        'elegant-glow': 'elegant-glow 4s ease-in-out infinite',
+        'luxury-pulse': 'luxury-pulse 3s ease-in-out infinite',
       },
       boxShadow: {
         'glow': '0 0 20px rgba(59, 130, 246, 0.3)',
         'glow-accent': '0 0 20px rgba(34, 211, 238, 0.3)',
         'card': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
         'card-hover': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+        'luxury': '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+        'luxury-xl': '0 35px 70px -15px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1), inset 0 2px 0 rgba(255, 255, 255, 0.1)',
+        'blue-elegant': '0 20px 40px rgba(59, 130, 246, 0.15), 0 0 0 1px rgba(59, 130, 246, 0.1)',
       },
       spacing: {
         '18': '4.5rem',

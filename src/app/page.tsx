@@ -1,8 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import React, { useState, useEffect } from 'react'
-import emailjs from '@emailjs/browser'
+import { useState, useEffect } from 'react'
 import { 
   Menu,
   X,
@@ -40,18 +39,6 @@ export default function ZandersHandymanHomePage() {
   const [headerVisible, setHeaderVisible] = useState(false)
   const [lastScrollY, setLastScrollY] = useState(0)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-  
-  // EmailJS Form State
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    projectType: '',
-    projectDetails: ''
-  })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null)
   
   // Using your actual banner images for the hero carousel
   const heroImages = [
@@ -131,103 +118,6 @@ export default function ZandersHandymanHomePage() {
     "/images/projects/Patio.webp",
     "/images/projects/Staircase2.webp"
   ]
-
-  // EmailJS Form Handler
-  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    
-    // Basic validation
-    if (!formData.firstName || !formData.lastName || !formData.email || !formData.projectDetails) {
-      setSubmitStatus('error')
-      alert('Please fill in all required fields.')
-      return
-    }
-
-    setIsSubmitting(true)
-    setSubmitStatus(null)
-
-    try {
-      // Get environment variables
-      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID
-      const userConfirmationTemplateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID_1
-      const businessNotificationTemplateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID_2
-      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
-
-      if (!serviceId || !userConfirmationTemplateId || !businessNotificationTemplateId || !publicKey) {
-        throw new Error('EmailJS configuration missing in environment variables')
-      }
-
-      // Template parameters for user confirmation email
-      const userTemplateParams = {
-        to_name: `${formData.firstName} ${formData.lastName}`,
-        to_email: formData.email,
-        from_name: 'Joe Zander - Zanders Handyman LLC',
-        reply_to: 'joeisoutside@gmail.com',
-        project_type: formData.projectType || 'General Inquiry',
-        project_details: formData.projectDetails,
-        customer_phone: formData.phone || 'Not provided',
-        subject: 'Thank You for Contacting Zanders Handyman - We\'ll Be In Touch!'
-      }
-
-      // Template parameters for business notification email
-      const businessTemplateParams = {
-        to_name: 'Joe Zander',
-        to_email: 'joeisoutside@gmail.com',
-        from_name: `${formData.firstName} ${formData.lastName}`,
-        from_email: formData.email,
-        from_phone: formData.phone || 'Not provided',
-        project_type: formData.projectType || 'General Inquiry',
-        project_details: formData.projectDetails,
-        reply_to: formData.email,
-        subject: `🔨 NEW PROJECT INQUIRY: ${formData.firstName} ${formData.lastName} - ${formData.projectType || 'General'}`
-      }
-
-      // Send confirmation email to user
-      await emailjs.send(
-        serviceId,
-        userConfirmationTemplateId,
-        userTemplateParams,
-        publicKey
-      )
-
-      // Send notification email to business
-      await emailjs.send(
-        serviceId,
-        businessNotificationTemplateId,
-        businessTemplateParams,
-        publicKey
-      )
-
-      setSubmitStatus('success')
-      // Reset form
-      setFormData({
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        projectType: '',
-        projectDetails: ''
-      })
-
-      alert('🎉 Thank you! Your project request has been sent successfully. Joe will contact you within 24 hours.')
-
-    } catch (error) {
-      console.error('EmailJS Error:', error)
-      setSubmitStatus('error')
-      alert('Sorry, there was an error sending your message. Please call (406) 231-5697 directly for immediate assistance.')
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
-
-  // Input change handler
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }))
-  }
 
   useEffect(() => {
     setMounted(true)
@@ -716,7 +606,7 @@ export default function ZandersHandymanHomePage() {
         <div className="absolute inset-0 bg-blue-600/10"></div>
         
         {/* Subtle professional patterns */}
-        <div className="absolute inset-0 opacity-20">
+        <div className="absolute inset-0 opacity-5">
           <div 
             className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600 rounded-full blur-3xl"
             style={{ transform: `translate(${mousePosition.x * 0.05}px, ${mousePosition.y * 0.05}px)` }}
@@ -757,10 +647,10 @@ export default function ZandersHandymanHomePage() {
                 style={{ 
                   animationDelay: `${index * 150}ms`
                 }}
-                onMouseEnter={(e: React.MouseEvent<HTMLDivElement>) => {
+                onMouseEnter={(e) => {
                   e.currentTarget.style.transform = `scale(1.05) rotate(${index % 2 === 0 ? '6deg' : '-6deg'})`
                 }}
-                onMouseLeave={(e: React.MouseEvent<HTMLDivElement>) => {
+                onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'scale(1) rotate(0deg)'
                 }}
               >
@@ -1053,30 +943,22 @@ export default function ZandersHandymanHomePage() {
                     <div className="flex-1 ml-4 h-px bg-gradient-to-r from-blue-600 to-transparent"></div>
                   </h3>
                 
-                <form onSubmit={handleFormSubmit} className="space-y-6">
+                <div className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-sm font-semibold text-slate-700 mb-2">First Name *</label>
                       <input 
-                        type="text"
-                        name="firstName"
-                        value={formData.firstName}
-                        onChange={handleInputChange}
+                        type="text" 
                         className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
                         placeholder="Your first name"
-                        required
                       />
                     </div>
                     <div>
                       <label className="block text-sm font-semibold text-slate-700 mb-2">Last Name *</label>
                       <input 
-                        type="text"
-                        name="lastName"
-                        value={formData.lastName}
-                        onChange={handleInputChange}
+                        type="text" 
                         className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
                         placeholder="Your last name"
-                        required
                       />
                     </div>
                   </div>
@@ -1084,23 +966,16 @@ export default function ZandersHandymanHomePage() {
                   <div>
                     <label className="block text-sm font-semibold text-slate-700 mb-2">Email Address *</label>
                     <input 
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
+                      type="email" 
                       className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
                       placeholder="your@email.com"
-                      required
                     />
                   </div>
                   
                   <div>
                     <label className="block text-sm font-semibold text-slate-700 mb-2">Phone Number</label>
                     <input 
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleInputChange}
+                      type="tel" 
                       className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
                       placeholder="(406) 123-4567"
                     />
@@ -1108,58 +983,37 @@ export default function ZandersHandymanHomePage() {
                   
                   <div>
                     <label className="block text-sm font-semibold text-slate-700 mb-2">Project Type</label>
-                    <select 
-                      name="projectType"
-                      value={formData.projectType}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
-                    >
-                      <option value="">Select a service...</option>
-                      <option value="Painting & Staining">Painting & Staining</option>
-                      <option value="Drywall & Repairs">Drywall & Repairs</option>
-                      <option value="Electrical Work">Electrical Work</option>
-                      <option value="Cleaning Services">Cleaning Services</option>
-                      <option value="Moving Services">Moving Services</option>
-                      <option value="General Maintenance">General Maintenance</option>
-                      <option value="Other">Other</option>
+                    <select className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300">
+                      <option>Select a service...</option>
+                      <option>Painting & Staining</option>
+                      <option>Drywall & Repairs</option>
+                      <option>Electrical Work</option>
+                      <option>Cleaning Services</option>
+                      <option>Moving Services</option>
+                      <option>General Maintenance</option>
+                      <option>Other</option>
                     </select>
                   </div>
                   
                   <div>
                     <label className="block text-sm font-semibold text-slate-700 mb-2">Project Details *</label>
                     <textarea 
-                      name="projectDetails"
-                      value={formData.projectDetails}
-                      onChange={handleInputChange}
                       rows={5}
                       className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 resize-none"
                       placeholder="Please describe your project, timeline, and any specific requirements..."
-                      required
                     ></textarea>
                   </div>
                   
                   <button 
-                    type="submit"
-                    disabled={isSubmitting}
-                    className={`w-full px-8 py-4 bg-gradient-to-r from-blue-600 to-slate-700 text-white font-bold text-lg rounded-xl shadow-luxury hover:shadow-luxury-xl hover:scale-105 transition-all duration-500 group ${
-                      isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
-                    }`}
+                    type="button"
+                    className="w-full px-8 py-4 bg-gradient-to-r from-blue-600 to-slate-700 text-white font-bold text-lg rounded-xl shadow-luxury hover:shadow-luxury-xl hover:scale-105 transition-all duration-500 group"
                   >
                     <div className="flex items-center justify-center">
-                      {isSubmitting ? (
-                        <>
-                          <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3"></div>
-                          Sending Your Project Request...
-                        </>
-                      ) : (
-                        <>
-                          Send My Project Details
-                          <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-1 transition-transform duration-300" />
-                        </>
-                      )}
+                      Send My Project Details
+                      <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-1 transition-transform duration-300" />
                     </div>
                   </button>
-                </form>
+                </div>
                 
                 {/* Quick Contact Options with Phone Emphasis */}
                 <div className="mt-8 pt-8 border-t border-gray-200">
