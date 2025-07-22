@@ -1,0 +1,26 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        # Set Node.js version (required for Next.js 15)
+        - nvm use 20
+        - node --version
+        - npm --version
+        # Clean install and fix vulnerabilities
+        - npm ci --cache .npm --prefer-offline
+        - npm audit fix --force || true
+    build:
+      commands:
+        # Build the Next.js application for static export
+        - npm run build
+  artifacts:
+    # For static export, use 'out' directory
+    baseDirectory: out
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - .next/cache/**/*
+      - .npm/**/*
+      - node_modules/**/*
