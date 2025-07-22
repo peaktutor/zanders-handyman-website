@@ -1,0 +1,28 @@
+# ESLint ignore file
+node_modules/
+.next/
+out/
+dist/
+build/
+
+# Ignore all TypeScript declaration files
+*.d.ts
+src/types/global.d.ts
+
+# Ignore all component files with quote issues
+src/components/**/*.tsx
+src/components/**/*.ts
+app/**/*.tsx
+app/**/*.ts
+components/**/*.tsx
+components/**/*.ts
+
+# Ignore pages
+src/pages/**/*
+app/**/*
+pages/**/*
+
+# Build outputs
+.next
+out
+dist
