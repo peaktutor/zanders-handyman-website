@@ -833,16 +833,17 @@ export default function ZandersHandymanHomePage() {
             
             {/* Professional Image Column */}
             <div className="relative">
-              <div className="aspect-square rounded-3xl overflow-hidden shadow-luxury-xl hover:scale-105 transition-all duration-700 relative">
+              <div className="w-full aspect-[2/3] rounded-3xl overflow-hidden shadow-luxury-xl hover:scale-105 transition-all duration-700 relative">
                 <Image
-                  src="/images/portraits/Joe_Zander2.webp"
+                  src="/images/Joe.png"
                   alt="Joe Zander - Professional Handyman"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 50vw"
+                  priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent"></div>
-                <div className="absolute bottom-8 left-8 text-white space-y-2">
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent pointer-events-none"></div>
+                <div className="absolute bottom-8 left-8 text-white space-y-2 z-10">
                   <h4 className="text-3xl font-bold">Joe Zander</h4>
                   <p className="text-blue-200 font-semibold text-xl">Montana Handyman Professional</p>
                   <p className="text-gray-300">Owner & Operator</p>
