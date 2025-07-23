@@ -321,7 +321,7 @@ export default function ZandersHandymanHomePage() {
                   <div className="absolute inset-1.5 bg-gradient-to-br from-white via-gray-50 to-slate-100 rounded-lg shadow-inner">
                     <div className="relative w-full h-full p-2">
                       <Image
-                        src="/images/3x2logo.png"
+                        src="/images/3x2Logo.png"
                         alt="Zanders Handyman Logo"
                         fill
                         className="object-contain"
@@ -835,7 +835,7 @@ export default function ZandersHandymanHomePage() {
             <div className="relative">
               <div className="aspect-square rounded-3xl overflow-hidden shadow-luxury-xl hover:scale-105 transition-all duration-700 relative">
                 <Image
-                  src="/images/portraits/Joe_Zander1.webp"
+                  src="/images/portraits/Joe_Zander2.webp"
                   alt="Joe Zander - Professional Handyman"
                   fill
                   className="object-cover"
