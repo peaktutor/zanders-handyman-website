@@ -122,3 +122,8 @@ out
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# ESLint (completely ignore - ADDED FOR AMPLIFY FIX)
+.eslintrc*
+.eslintignore
+eslint.config.*
