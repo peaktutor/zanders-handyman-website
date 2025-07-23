@@ -3,37 +3,11 @@ frontend:
   phases:
     preBuild:
       commands:
-        - nvm use 20
-        - npm ci --no-audit --no-fund
-        # Remove ESLint completely from node_modules
-        - rm -rf node_modules/eslint*
-        - rm -rf node_modules/@eslint*
-        - rm -rf node_modules/@typescript-eslint*
-        # Remove any ESLint config files
-        - rm -f .eslintrc*
-        - rm -f eslint.config.*
+        - npm ci
     build:
       commands:
-        # Set environment to skip all linting
-        - export SKIP_ENV_VALIDATION=true
-        - export ESLINT_NO_DEV_ERRORS=true
-        - export DISABLE_ESLINT_PLUGIN=true
         - npm run build
-        # Verify static files were created
-        - ls -la out/
-        # Create required-server-files.json as empty (Amplify expects this)
-        - echo '{}' > out/required-server-files.json
   artifacts:
     baseDirectory: out
     files:
       - '**/*'
-  cache:
-    paths:
-      - node_modules/**/*
-  customHeaders:
-    - pattern: '**/*'
-      headers:
-        - key: 'X-Frame-Options'
-          value: 'DENY'
-        - key: 'X-Content-Type-Options' 
-          value: 'nosniff'
