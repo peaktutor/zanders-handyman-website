@@ -871,7 +871,7 @@ export default function ZandersHandymanHomePage() {
               
               {/* Updated Professional Floating Stats - Hidden on Mobile */}
               <div 
-                className="hidden md:block absolute -bottom-8 -right-8 rounded-3xl p-8 shadow-luxury-xl border-4 border-white hover:scale-105 transition-all duration-500 animate-subtle-float"
+                className="hidden md:block absolute -bottom-8 -right-8 rounded-3xl p-8 shadow-luxury-xl border-4 border-white hover:scale-105 transition-all duration-500 animate-subtle-float z-30"
                 style={{background: 'linear-gradient(to bottom right, #156a89, #0f4f6b)'}}
               >
                 <div className="text-4xl font-black text-white">100</div>
@@ -880,7 +880,7 @@ export default function ZandersHandymanHomePage() {
               </div>
               
               <div 
-                className="hidden md:block absolute -top-8 -left-8 rounded-3xl p-8 shadow-luxury-xl border-4 border-white hover:scale-105 transition-all duration-500 animate-subtle-float delay-1000"
+                className="hidden md:block absolute -top-8 -left-8 rounded-3xl p-8 shadow-luxury-xl border-4 border-white hover:scale-105 transition-all duration-500 animate-subtle-float delay-1000 z-30"
                 style={{background: 'linear-gradient(to bottom right, #156a89, #134e73)'}}
               >
                 <div className="text-4xl font-black text-white">10+</div>
@@ -889,7 +889,7 @@ export default function ZandersHandymanHomePage() {
               </div>
 
               <div 
-                className="hidden md:block absolute top-1/2 -right-12 rounded-3xl p-6 shadow-luxury-xl border-4 border-white hover:scale-105 transition-all duration-500 animate-subtle-float delay-2000"
+                className="hidden md:block absolute top-1/2 -right-12 rounded-3xl p-6 shadow-luxury-xl border-4 border-white hover:scale-105 transition-all duration-500 animate-subtle-float delay-2000 z-30"
                 style={{background: 'linear-gradient(to bottom right, #156a89, #103d5c)'}}
               >
                 <div className="text-3xl font-black text-white">FREE</div>
