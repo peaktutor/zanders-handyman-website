@@ -379,7 +379,7 @@ export default function ZandersHandymanHomePage() {
 
           {/* Improved Mobile Navigation */}
           {mobileMenuOpen && (
-            <div className="lg:hidden absolute top-full left-4 right-4 bg-white/97 backdrop-blur-xl border border-gray-200/50 rounded-b-3xl shadow-luxury-xl animate-in slide-in-from-top-5 duration-500">
+            <div className="lg:hidden absolute top-full left-4 right-4 bg-white backdrop-blur-xl border border-gray-200/50 rounded-b-3xl shadow-luxury-xl animate-in slide-in-from-top-5 duration-500 z-50">
               <div className="p-6 space-y-4">
                 <div className="text-center pb-4 border-b border-gray-200">
                   <div className="text-xl font-black text-slate-800 mb-1">ZANDERS HANDYMAN LLC</div>
