@@ -330,7 +330,7 @@ export default function ZandersHandymanHomePage() {
                 <div className="relative w-40 h-28 p-2">
                   <Image
                     src="/images/3x2Logo.png"
-                    alt="Zanders Handyman Logo"
+                    alt="Zander's Handyman Logo"
                     fill
                     className="object-contain"
                     sizes="160px"
@@ -382,7 +382,7 @@ export default function ZandersHandymanHomePage() {
             <div className="lg:hidden absolute top-full left-4 right-4 bg-white backdrop-blur-xl border border-gray-200/50 rounded-b-3xl shadow-luxury-xl animate-in slide-in-from-top-5 duration-500 z-50">
               <div className="p-6 space-y-4">
                 <div className="text-center pb-4 border-b border-gray-200">
-                  <div className="text-xl font-black text-slate-800 mb-1">ZANDERS HANDYMAN LLC</div>
+                  <div className="text-xl font-black text-slate-800 mb-1">ZANDER'S HANDYMAN LLC</div>
                   <div className="text-sm text-slate-600 tracking-wider">Montana's Trusted Professional</div>
                 </div>
                 
@@ -490,7 +490,7 @@ export default function ZandersHandymanHomePage() {
             {/* Professional Business Identity */}
             <div className="space-y-8">
               <h1 className="text-6xl md:text-7xl xl:text-8xl font-black text-white tracking-tight leading-none text-shadow-luxury">
-                ZANDERS
+                ZANDER'S
               </h1>
               <div className="text-2xl md:text-3xl xl:text-4xl font-bold text-white tracking-wide text-shadow-luxury">
                 HANDYMAN LLC
@@ -580,8 +580,8 @@ export default function ZandersHandymanHomePage() {
           </div>
         </div>
 
-        {/* Professional Scroll Indicator */}
-        <div className="absolute bottom-8 right-8 text-white/80 text-center animate-bounce">
+        {/* Professional Scroll Indicator - Hidden on Mobile */}
+        <div className="hidden md:block absolute bottom-8 right-8 text-white/80 text-center animate-bounce">
           <ChevronDown className="w-8 h-8 mx-auto mb-2" />
           <div className="text-sm font-medium tracking-wide">EXPLORE</div>
         </div>
@@ -630,7 +630,7 @@ export default function ZandersHandymanHomePage() {
               </span>
             </h2>
             <p className="text-base md:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
-              From the Gallatin Valley to Big Sky Country, <strong className="text-custom-blue">Zanders Handyman</strong> brings 
+              From the Gallatin Valley to Big Sky Country, <strong className="text-custom-blue">Zander's Handyman</strong> brings 
               Montana work ethic and 10+ years of experience to every project.
             </p>
           </div>
@@ -1215,7 +1215,7 @@ export default function ZandersHandymanHomePage() {
         </div>
       </section>
 
-      {/* Updated Contact Section - Enhanced Blue Color Theory */}
+      {/* Streamlined Contact Section */}
       <section id="contact" className="relative py-24 text-white overflow-hidden"
         style={{
           background: 'linear-gradient(135deg, #0f4f6b 0%, #156a89 25%, #1a7ca3 50%, #156a89 75%, #134e73 100%)'
@@ -1236,7 +1236,7 @@ export default function ZandersHandymanHomePage() {
         <div className="absolute inset-0" style={{background: 'linear-gradient(45deg, rgba(21, 106, 137, 0.1) 0%, transparent 50%, rgba(26, 124, 163, 0.08) 100%)'}}></div>
         <div className="absolute inset-0" style={{background: 'radial-gradient(ellipse at center, rgba(32, 149, 196, 0.05) 0%, transparent 70%)'}}></div>
         
-        {/* Professional Background Elements with Blue Harmony */}
+        {/* Professional Background Elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div 
             className="absolute top-1/4 left-1/2 w-96 h-96 blur-3xl rounded-full animate-subtle-float"
@@ -1252,19 +1252,12 @@ export default function ZandersHandymanHomePage() {
               transform: `translate(${mousePosition.x * -0.1}px, ${mousePosition.y * -0.1}px)` 
             }}
           />
-          <div 
-            className="absolute top-1/2 left-1/4 w-64 h-64 blur-2xl rounded-full animate-subtle-float delay-3000"
-            style={{ 
-              background: 'radial-gradient(circle, rgba(32, 149, 196, 0.12) 0%, transparent 70%)',
-              transform: `translate(${mousePosition.x * 0.05}px, ${mousePosition.y * 0.08}px)` 
-            }}
-          />
         </div>
         
-        <div className="relative z-10 max-w-6xl mx-auto px-4 lg:px-6">
+        <div className="relative z-10 max-w-5xl mx-auto px-4 lg:px-6">
           
-          {/* Enhanced Header with Phone Emphasis */}
-          <div className="text-center mb-16 space-y-4">
+          {/* Header */}
+          <div className="text-center mb-16 space-y-6">
             <div 
               className="inline-flex items-center px-4 py-2 font-black text-sm uppercase tracking-wide rounded-full shadow-luxury backdrop-blur-lg border"
               style={{
@@ -1273,7 +1266,7 @@ export default function ZandersHandymanHomePage() {
                 color: '#e0f2fe'
               }}
             >
-              <Phone className="w-4 h-4 mr-2 animate-pulse" />
+              <Phone className="w-4 h-4 mr-2" />
               Ready for Montana Craftsmanship?
             </div>
             <h2 className="text-3xl md:text-4xl xl:text-5xl font-black leading-tight text-shadow-luxury">
@@ -1283,212 +1276,108 @@ export default function ZandersHandymanHomePage() {
                 TRUSTED Handyman
               </span>
             </h2>
-            
-            {/* Main Phone Number Display */}
-            <div 
-              className="backdrop-blur-xl rounded-2xl p-6 shadow-luxury-xl mx-auto max-w-2xl border"
-              style={{
-                background: 'linear-gradient(135deg, rgba(21, 106, 137, 0.25) 0%, rgba(15, 79, 107, 0.35) 50%, rgba(26, 124, 163, 0.25) 100%)',
-                borderColor: 'rgba(32, 149, 196, 0.3)'
-              }}
-            >
-              <div className="text-center space-y-3">
-                <div className="flex items-center justify-center space-x-2 mb-3">
-                  <Phone className="w-6 h-6 text-blue-100 animate-pulse" />
-                  <div className="text-3xl md:text-4xl font-black text-white tracking-wide">
-                    (406) 231-5697
-                  </div>
-                  <Phone className="w-6 h-6 text-blue-100 animate-pulse" />
-                </div>
-                <p className="text-base text-blue-100 font-semibold">
-                  Available 7 Days a Week • Free Estimates Offered
-                </p>
-                <div className="flex flex-wrap justify-center gap-2 text-sm">
-                  <span className="flex items-center text-green-300 font-semibold">
-                    <CheckCircle className="w-4 h-4 mr-1" />
-                    Same-Day Response
-                  </span>
-                  <span className="flex items-center text-blue-100 font-semibold">
-                    <CheckCircle className="w-4 h-4 mr-1" />
-                    Emergency Service
-                  </span>
-                  <span className="flex items-center text-gray-200 font-semibold">
-                    <CheckCircle className="w-4 h-4 mr-1" />
-                    100-Mile Range
-                  </span>
-                </div>
-              </div>
-            </div>
-            
-            <p className="text-sm md:text-base text-blue-100 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg text-blue-100 max-w-3xl mx-auto leading-relaxed">
               From the Gallatin Valley to Big Sky Country, 
-              <span className="text-white font-bold"> Zanders Handyman</span> delivers
+              <span className="text-white font-bold"> Zander's Handyman</span> delivers
               <span className="text-blue-50 font-bold"> Montana work ethic</span> with
               <span className="text-blue-100 font-bold"> 10+ years of trusted excellence</span>.
             </p>
           </div>
           
-          {/* Simplified Contact Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-            {/* Primary Phone Contact */}
+          {/* Main Contact Card */}
+          <div className="max-w-3xl mx-auto">
             <div 
-              className="rounded-2xl p-8 group relative overflow-hidden backdrop-blur-xl border shadow-luxury-xl"
-              style={{
-                background: 'linear-gradient(135deg, rgba(15, 79, 107, 0.6) 0%, rgba(21, 106, 137, 0.5) 50%, rgba(26, 124, 163, 0.4) 100%)',
-                borderColor: 'rgba(32, 149, 196, 0.4)'
-              }}
-            >
-              <div 
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                style={{background: 'linear-gradient(135deg, rgba(32, 149, 196, 0.1) 0%, rgba(26, 124, 163, 0.15) 100%)'}}
-              ></div>
-              <div className="relative z-10 text-center">
-                <div 
-                  className="w-16 h-16 rounded-full flex items-center justify-center shadow-luxury mx-auto mb-4"
-                  style={{background: 'linear-gradient(to bottom right, #156a89, #0f4f6b)'}}
-                >
-                  <Phone className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-2xl font-black text-white mb-2">Call Joe Direct</h3>
-                <p className="text-blue-100 font-semibold mb-4">Fastest Response for Montana Projects</p>
-                <div className="text-2xl font-black text-blue-50 tracking-wide mb-4">
-                  (406) 231-5697
-                </div>
-                <a 
-                  href="tel:4062315697"
-                  className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-bold rounded-xl shadow-luxury hover:scale-105 transition-all duration-500"
-                >
-                  <Phone className="w-5 h-5 mr-2" />
-                  Call Joe Now
-                </a>
-              </div>
-            </div>
-            
-            {/* Secondary Contact */}
-            <div 
-              className="rounded-2xl p-8 group backdrop-blur-xl border shadow-luxury-xl"
-              style={{
-                background: 'linear-gradient(135deg, rgba(21, 106, 137, 0.4) 0%, rgba(15, 79, 107, 0.5) 50%, rgba(19, 78, 115, 0.4) 100%)',
-                borderColor: 'rgba(26, 124, 163, 0.3)'
-              }}
-            >
-              <div className="text-center">
-                <Mail className="w-16 h-16 mx-auto mb-4 text-blue-100" />
-                <h3 className="text-2xl font-bold mb-2 text-white">Email Estimate</h3>
-                <p className="text-lg font-bold mb-2 text-blue-100">
-                  joeisoutside@gmail.com
-                </p>
-                <p className="text-blue-200 mb-4">Detailed Montana project estimates</p>
-                <a 
-                  href="mailto:joeisoutside@gmail.com"
-                  className="inline-flex items-center px-6 py-3 text-white font-semibold rounded-lg transition-all duration-300 shadow-lg"
-                  style={{background: 'linear-gradient(135deg, #0f4f6b 0%, #134e73 100%)'}}
-                >
-                  Send Email
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* Single Call to Action */}
-          <div className="text-center">
-            <div 
-              className="backdrop-blur-xl rounded-2xl p-8 shadow-luxury-xl border"
+              className="backdrop-blur-xl rounded-3xl p-12 shadow-luxury-xl border text-center"
               style={{
                 background: 'linear-gradient(135deg, rgba(21, 106, 137, 0.3) 0%, rgba(15, 79, 107, 0.4) 50%, rgba(26, 124, 163, 0.3) 100%)',
                 borderColor: 'rgba(32, 149, 196, 0.4)'
               }}
             >
-              <h3 className="text-2xl md:text-3xl font-black text-white mb-6">
-                Don't Wait - Call Today!
-              </h3>
-              <div className="space-y-4">
-                <a 
-                  href="tel:4062315697" 
-                  className="inline-flex items-center px-12 py-6 bg-gradient-to-r from-green-500 via-emerald-600 to-green-700 text-white font-black text-xl rounded-2xl shadow-luxury-xl hover:scale-110 transition-all duration-500 relative overflow-hidden group"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <div className="relative z-10 flex items-center justify-center">
-                    <Phone className="w-6 h-6 mr-3 animate-pulse" />
-                    CALL JOE NOW
+              <div className="space-y-8">
+                {/* Phone Section */}
+                <div>
+                  <div className="flex items-center justify-center space-x-3 mb-4">
+                    <Phone className="w-8 h-8 text-blue-100" />
+                    <div className="text-4xl md:text-5xl font-black text-white tracking-wide">
+                      (406) 231-5697
+                    </div>
+                    <Phone className="w-8 h-8 text-blue-100" />
                   </div>
-                  <Sparkles className="absolute top-3 right-3 w-5 h-5 text-white/70 group-hover:text-white transition-all duration-300" />
-                </a>
-                
-                <div className="text-center">
-                  <p className="text-blue-100 font-medium mb-2">Or text for quick response:</p>
+                  <p className="text-blue-100 font-semibold text-lg mb-6">
+                    Available 7 Days a Week • Free Estimates • 100-Mile Range
+                  </p>
                   <a 
-                    href="sms:4062315697"
-                    className="inline-flex items-center px-8 py-3 text-white font-bold rounded-xl shadow-luxury hover:scale-105 transition-all duration-500"
-                    style={{background: 'linear-gradient(to right, #134e73, #156a89)'}}
+                    href="tel:4062315697" 
+                    className="inline-flex items-center px-12 py-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-black text-xl rounded-2xl shadow-luxury-xl hover:scale-105 transition-all duration-500 group"
                   >
-                    <Mail className="w-5 h-5 mr-2" />
-                    Text Joe
+                    <Phone className="w-6 h-6 mr-3" />
+                    CALL JOE NOW
                   </a>
+                </div>
+
+                {/* Divider */}
+                <div className="flex items-center">
+                  <div className="flex-1 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+                  <span className="px-4 text-blue-100 font-medium">OR</span>
+                  <div className="flex-1 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+                </div>
+
+                {/* Email Section */}
+                <div>
+                  <div className="flex items-center justify-center mb-4">
+                    <Mail className="w-8 h-8 text-blue-100 mr-3" />
+                    <h3 className="text-2xl font-bold text-white">Email for Estimates</h3>
+                  </div>
+                  <p className="text-xl font-bold text-blue-100 mb-4">
+                    joeisoutside@gmail.com
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a 
+                      href="mailto:joeisoutside@gmail.com"
+                      className="inline-flex items-center px-8 py-3 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:scale-105"
+                      style={{background: 'linear-gradient(135deg, #0f4f6b 0%, #134e73 100%)'}}
+                    >
+                      <Mail className="w-5 h-5 mr-2" />
+                      Send Email
+                    </a>
+                    <a 
+                      href="sms:4062315697"
+                      className="inline-flex items-center px-8 py-3 text-white font-semibold rounded-xl shadow-lg hover:scale-105 transition-all duration-500"
+                      style={{background: 'linear-gradient(to right, #134e73, #156a89)'}}
+                    >
+                      <Mail className="w-5 h-5 mr-2" />
+                      Text Joe
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Trust Indicators */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12">
-            {[
-              { number: "10+", label: "Years Montana Strong", color: "text-blue-100", icon: Clock },
-              { number: "FREE", label: "Estimates Offered", color: "text-green-300", icon: Award },
-              { number: "100", label: "Mile Range", color: "text-blue-50", icon: MapPin },
-              { number: "24/7", label: "Phone Available", color: "text-white", icon: Phone }
-            ].map((stat, index) => (
-              <div key={index} className="text-center group">
-                <div 
-                  className="w-8 h-8 mx-auto mb-2 rounded-full flex items-center justify-center shadow-luxury group-hover:scale-110 transition-transform duration-500"
-                  style={{background: 'linear-gradient(to bottom right, #156a89, #0f4f6b)'}}
-                >
-                  <stat.icon className="w-4 h-4 text-white" />
-                </div>
-                <div className={`text-2xl font-black ${stat.color} mb-1`}>{stat.number}</div>
-                <div className="text-blue-200 font-medium text-xs">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-          
-          {/* Final Trust Message */}
+          {/* Final Guarantee */}
           <div 
-            className="rounded-2xl p-6 max-w-3xl mx-auto mt-12 shadow-luxury-xl backdrop-blur-xl border"
+            className="rounded-2xl p-8 max-w-4xl mx-auto mt-12 shadow-luxury-xl backdrop-blur-xl border text-center"
             style={{
               background: 'linear-gradient(135deg, rgba(15, 79, 107, 0.7) 0%, rgba(21, 106, 137, 0.6) 50%, rgba(19, 78, 115, 0.7) 100%)',
               borderColor: 'rgba(32, 149, 196, 0.4)'
             }}
           >
-            <div className="flex items-center justify-center mb-4">
-              <Quote className="w-8 h-8 text-blue-100" />
-            </div>
-            <p className="text-lg font-black text-white mb-4 leading-relaxed text-center">
-              "Call (406) 231-5697 - Montana professional, reliable, experienced. If there's something we can't do, we'll point you in the right direction."
+            <Quote className="w-8 h-8 mx-auto mb-4 text-blue-100" />
+            <p className="text-xl font-bold text-white mb-6 leading-relaxed">
+              "Montana professional, reliable, experienced. If there's something we can't do, we'll point you in the right direction."
             </p>
-            <div className="flex flex-wrap justify-center gap-4 mb-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
-                { icon: CheckCircle, text: "Trusted by Yellowstone Club", color: "text-blue-100" },
-                { icon: CheckCircle, text: "Montana Established 2016", color: "text-white" },
-                { icon: CheckCircle, text: "Free Estimates Offered", color: "text-green-300" },
-                { icon: CheckCircle, text: "Local Bozeman Professional", color: "text-blue-200" }
+                { icon: CheckCircle, text: "Trusted by Yellowstone Club" },
+                { icon: CheckCircle, text: "Montana Est. 2016" },
+                { icon: CheckCircle, text: "Free Estimates" },
+                { icon: CheckCircle, text: "Local Bozeman Pro" }
               ].map((item, index) => (
-                <span key={index} className={`flex items-center ${item.color} font-bold text-sm`}>
-                  <item.icon className="w-4 h-4 mr-2" />
-                  {item.text}
-                </span>
+                <div key={index} className="flex items-center justify-center text-blue-100 font-semibold text-sm">
+                  <item.icon className="w-4 h-4 mr-2 flex-shrink-0" />
+                  <span>{item.text}</span>
+                </div>
               ))}
-            </div>
-            
-            {/* Final Phone CTA */}
-            <div className="text-center pt-4 border-t border-white/20">
-              <a 
-                href="tel:4062315697"
-                className="inline-flex items-center px-6 py-3 text-white font-black rounded-xl shadow-luxury hover:scale-105 transition-all duration-500"
-                style={{background: 'linear-gradient(to right, #156a89, #1a7ca3)'}}
-              >
-                <Phone className="w-5 h-5 mr-2" />
-                Call Joe Now
-              </a>
             </div>
           </div>
         </div>
