@@ -146,7 +146,7 @@ export default function ZandersHandymanHomePage() {
         }
         document.head.appendChild(script)
       } else if (window.emailjs) {
-        window.emailjs.init("YRkvyBY35C3TftmP0E") // Replace with your actual public key
+        window.emailjs.init("RkvyBY35C3TftmP0E") // Replace with your actual public key
       }
     }
 
