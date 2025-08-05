@@ -137,7 +137,7 @@ export default function ZandersHandymanHomePage() {
         script.async = true
         script.onload = () => {
           if (window.emailjs) {
-            window.emailjs.init("RkvyBY35C3TftmP0E") // Replace with your actual public key
+            window.emailjs.init("YOUR_PUBLIC_KEY") // Replace with your actual public key
             console.log('EmailJS initialized successfully')
           }
         }
@@ -146,7 +146,7 @@ export default function ZandersHandymanHomePage() {
         }
         document.head.appendChild(script)
       } else if (window.emailjs) {
-        window.emailjs.init("RkvyBY35C3TftmP0E") // Replace with your actual public key
+        window.emailjs.init("YOUR_PUBLIC_KEY") // Replace with your actual public key
       }
     }
 
@@ -220,6 +220,7 @@ export default function ZandersHandymanHomePage() {
 
     // Basic form validation
     if (!formData.firstName || !formData.lastName || !formData.email || !formData.projectDetails) {
+      console.error('❌ Form validation failed - missing required fields')
       setSubmitStatus('error')
       setIsSubmitting(false)
       return
@@ -228,8 +229,11 @@ export default function ZandersHandymanHomePage() {
     try {
       // Check if EmailJS is loaded
       if (!window.emailjs) {
+        console.error('❌ EmailJS not loaded on window object')
         throw new Error('EmailJS not loaded')
       }
+
+      console.log('🔧 EmailJS is loaded, proceeding with form submission...')
 
       // Prepare template parameters
       const templateParams = {
@@ -252,17 +256,21 @@ export default function ZandersHandymanHomePage() {
         request_time: new Date().toLocaleTimeString()
       }
 
-      console.log('Sending emails with template params:', templateParams)
+      console.log('📧 Sending emails with template params:', templateParams)
+      console.log('🔑 Using service ID: service_7webk2')
 
       // Send customer confirmation email
-      await window.emailjs.send('service_7webk2', 'customer_confirmation', templateParams)
-      console.log('✅ Customer confirmation sent!')
+      console.log('📤 Sending customer confirmation email...')
+      const customerResult = await window.emailjs.send('service_7webk2', 'customer_confirmation', templateParams)
+      console.log('✅ Customer confirmation sent successfully!', customerResult)
       
       // Send Joe's notification email
-      await window.emailjs.send('service_7webk2', 'joe_notification', templateParams)
-      console.log('✅ Joe notification sent!')
+      console.log('📤 Sending Joe notification email...')
+      const joeResult = await window.emailjs.send('service_7webk2', 'joe_notification', templateParams)
+      console.log('✅ Joe notification sent successfully!', joeResult)
       
       // Success
+      console.log('🎉 Both emails sent successfully!')
       setSubmitStatus('success')
       setFormData({
         firstName: '',
@@ -274,7 +282,21 @@ export default function ZandersHandymanHomePage() {
       })
       
     } catch (error) {
-      console.error('❌ Email error:', error)
+      console.error('❌ Detailed email error:', error)
+      
+      // Safely handle error properties
+      if (error instanceof Error) {
+        console.error('❌ Error name:', error.name)
+        console.error('❌ Error message:', error.message)
+      }
+      
+      // Try to stringify the error for more details
+      try {
+        console.error('❌ Full error object:', JSON.stringify(error, null, 2))
+      } catch (stringifyError) {
+        console.error('❌ Could not stringify error object')
+      }
+      
       setSubmitStatus('error')
     } finally {
       setIsSubmitting(false)
