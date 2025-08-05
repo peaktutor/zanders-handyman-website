@@ -3,31 +3,29 @@
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { 
-  Menu,
-  X,
-  Hammer, 
-  Paintbrush, 
-  Lightbulb, 
-  Home, 
-  Truck, 
-  CheckCircle, 
-  Star, 
-  Phone, 
-  Mail, 
-  MapPin,
-  ArrowRight,
-  Award,
-  Clock,
-  Shield,
-  ChevronDown,
-  Wrench,
-  Zap,
-  Quote,
-  Users,
-  TrendingUp,
-  Sparkles,
-  Diamond
+  Menu, X, Hammer, Paintbrush, Lightbulb, Home, Truck, CheckCircle, Star, Phone, Mail, MapPin,
+  ArrowRight, Award, Clock, Shield, ChevronDown, Wrench, Zap, Quote, Users, TrendingUp, Sparkles, Diamond,
+  Send  // Add this
 } from 'lucide-react'
+
+// EmailJS type declarations
+declare global {
+  interface Window {
+    emailjs: {
+      init: (publicKey: string) => void;
+      send: (serviceId: string, templateId: string, templateParams: any) => Promise<any>;
+    };
+  }
+}
+
+interface FormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  projectType: string;
+  projectDetails: string;
+}
 
 export default function ZandersHandymanHomePage() {
   const [currentSlide, setCurrentSlide] = useState(0)
@@ -38,7 +36,17 @@ export default function ZandersHandymanHomePage() {
   const [headerVisible, setHeaderVisible] = useState(false)
   const [lastScrollY, setLastScrollY] = useState(0)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-  
+  const [formData, setFormData] = useState<FormData>({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    projectType: '',
+    projectDetails: ''
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState('')
+
   // Using your actual banner images for the hero carousel
   const heroImages = [
     '/images/banners/Banner1.webp',
@@ -121,6 +129,29 @@ export default function ZandersHandymanHomePage() {
   useEffect(() => {
     setMounted(true)
     
+    // Load EmailJS script and initialize
+    const loadEmailJS = () => {
+      if (typeof window !== 'undefined' && !window.emailjs) {
+        const script = document.createElement('script')
+        script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js'
+        script.async = true
+        script.onload = () => {
+          if (window.emailjs) {
+            window.emailjs.init("YOUR_PUBLIC_KEY") // Replace with your actual public key
+            console.log('EmailJS initialized successfully')
+          }
+        }
+        script.onerror = () => {
+          console.error('Failed to load EmailJS')
+        }
+        document.head.appendChild(script)
+      } else if (window.emailjs) {
+        window.emailjs.init("YOUR_PUBLIC_KEY") // Replace with your actual public key
+      }
+    }
+
+    loadEmailJS()
+
     // Auto-advance hero slides every 6 seconds
     const slideInterval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % heroImages.length)
@@ -171,6 +202,84 @@ export default function ZandersHandymanHomePage() {
       window.removeEventListener('mousemove', handleMouseMove)
     }
   }, [heroImages.length, portfolioImages.length])
+
+  // Handle form input changes
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }))
+  }
+
+  // Handle form submission with EmailJS
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setSubmitStatus('')
+
+    // Basic form validation
+    if (!formData.firstName || !formData.lastName || !formData.email || !formData.projectDetails) {
+      setSubmitStatus('error')
+      setIsSubmitting(false)
+      return
+    }
+
+    try {
+      // Check if EmailJS is loaded
+      if (!window.emailjs) {
+        throw new Error('EmailJS not loaded')
+      }
+
+      // Prepare template parameters
+      const templateParams = {
+        // Customer Info
+        from_name: `${formData.firstName} ${formData.lastName}`,
+        to_name: formData.firstName,
+        reply_to: formData.email,
+        phone_number: formData.phone || 'Not provided',
+        location: 'Montana', // Default location
+        
+        // Project Details
+        service_type: formData.projectType || 'General Handyman Services',
+        timeline: 'As discussed',
+        budget: 'To be estimated',
+        property_type: 'Residential',
+        message: formData.projectDetails,
+        
+        // Auto-generated timestamps
+        request_date: new Date().toLocaleDateString(),
+        request_time: new Date().toLocaleTimeString()
+      }
+
+      console.log('Sending emails with template params:', templateParams)
+
+      // Send customer confirmation email
+      await window.emailjs.send('service_7webk2', 'customer_confirmation', templateParams)
+      console.log('✅ Customer confirmation sent!')
+      
+      // Send Joe's notification email
+      await window.emailjs.send('service_7webk2', 'joe_notification', templateParams)
+      console.log('✅ Joe notification sent!')
+      
+      // Success
+      setSubmitStatus('success')
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        projectType: '',
+        projectDetails: ''
+      })
+      
+    } catch (error) {
+      console.error('❌ Email error:', error)
+      setSubmitStatus('error')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href)
@@ -972,99 +1081,153 @@ export default function ZandersHandymanHomePage() {
                     <div className="flex-1 ml-4 h-px bg-gradient-to-r from-custom-blue to-transparent"></div>
                   </h3>
                 
-                <div className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Success/Error Messages */}
+                  {submitStatus === 'success' && (
+                    <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-xl">
+                      <div className="flex items-center">
+                        <CheckCircle className="w-5 h-5 text-green-600 mr-2" />
+                        <p className="text-green-800 font-semibold">Thank you! Your message has been sent successfully. Joe will contact you soon!</p>
+                      </div>
+                    </div>
+                  )}
+                  
+                  {submitStatus === 'error' && (
+                    <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl">
+                      <div className="flex items-center">
+                        <X className="w-5 h-5 text-red-600 mr-2" />
+                        <p className="text-red-800 font-semibold">Sorry, there was an error sending your message. Please try calling Joe directly at (406) 231-5697.</p>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* EmailJS Form */}
+                  <form onSubmit={handleFormSubmit} className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <label className="block text-sm font-semibold text-slate-700 mb-2">First Name *</label>
+                        <input 
+                          type="text" 
+                          name="firstName"
+                          value={formData.firstName}
+                          onChange={handleInputChange}
+                          className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-custom-blue focus:border-transparent transition-all duration-300"
+                          placeholder="Your first name"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-semibold text-slate-700 mb-2">Last Name *</label>
+                        <input 
+                          type="text" 
+                          name="lastName"
+                          value={formData.lastName}
+                          onChange={handleInputChange}
+                          className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-custom-blue focus:border-transparent transition-all duration-300"
+                          placeholder="Your last name"
+                          required
+                        />
+                      </div>
+                    </div>
+                    
                     <div>
-                      <label className="block text-sm font-semibold text-slate-700 mb-2">First Name *</label>
+                      <label className="block text-sm font-semibold text-slate-700 mb-2">Email Address *</label>
                       <input 
-                        type="text" 
+                        type="email" 
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
                         className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-custom-blue focus:border-transparent transition-all duration-300"
-                        placeholder="Your first name"
+                        placeholder="your@email.com"
+                        required
                       />
                     </div>
+                    
                     <div>
-                      <label className="block text-sm font-semibold text-slate-700 mb-2">Last Name *</label>
+                      <label className="block text-sm font-semibold text-slate-700 mb-2">Phone Number</label>
                       <input 
-                        type="text" 
+                        type="tel" 
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleInputChange}
                         className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-custom-blue focus:border-transparent transition-all duration-300"
-                        placeholder="Your last name"
+                        placeholder="(406) 123-4567"
                       />
                     </div>
-                  </div>
-                  
-                  <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-2">Email Address *</label>
-                    <input 
-                      type="email" 
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-custom-blue focus:border-transparent transition-all duration-300"
-                      placeholder="your@email.com"
-                    />
-                  </div>
-                  
-                  <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-2">Phone Number</label>
-                    <input 
-                      type="tel" 
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-custom-blue focus:border-transparent transition-all duration-300"
-                      placeholder="(406) 123-4567"
-                    />
-                  </div>
-                  
-                  <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-2">Project Type</label>
-                    <select className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-custom-blue focus:border-transparent transition-all duration-300">
-                      <option>Select a service...</option>
-                      <option>Painting & Staining</option>
-                      <option>Drywall & Repairs</option>
-                      <option>Electrical Work</option>
-                      <option>Cleaning Services</option>
-                      <option>Moving Services</option>
-                      <option>General Maintenance</option>
-                      <option>Other</option>
-                    </select>
-                  </div>
-                  
-                  <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-2">Project Details *</label>
-                    <textarea 
-                      rows={5}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-custom-blue focus:border-transparent transition-all duration-300 resize-none"
-                      placeholder="Please describe your project, timeline, and any specific requirements..."
-                    ></textarea>
-                  </div>
-                  
-                  <button 
-                    type="button"
-                    className="w-full px-8 py-4 text-white font-bold text-lg rounded-xl shadow-luxury hover:shadow-luxury-xl hover:scale-105 transition-all duration-500 group"
-                    style={{background: 'linear-gradient(to right, #156a89, #64748b)'}}
-                  >
-                    <div className="flex items-center justify-center">
-                      Send My Project Details
-                      <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-1 transition-transform duration-300" />
+                    
+                    <div>
+                      <label className="block text-sm font-semibold text-slate-700 mb-2">Project Type</label>
+                      <select 
+                        name="projectType"
+                        value={formData.projectType}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-custom-blue focus:border-transparent transition-all duration-300"
+                      >
+                        <option value="">Select a service...</option>
+                        <option value="Painting & Staining">Painting & Staining</option>
+                        <option value="Drywall & Repairs">Drywall & Repairs</option>
+                        <option value="Electrical Work">Electrical Work</option>
+                        <option value="Cleaning Services">Cleaning Services</option>
+                        <option value="Moving Services">Moving Services</option>
+                        <option value="General Maintenance">General Maintenance</option>
+                        <option value="Other">Other</option>
+                      </select>
                     </div>
-                  </button>
-                </div>
+                    
+                    <div>
+                      <label className="block text-sm font-semibold text-slate-700 mb-2">Project Details *</label>
+                      <textarea 
+                        rows={5}
+                        name="projectDetails"
+                        value={formData.projectDetails}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-custom-blue focus:border-transparent transition-all duration-300 resize-none"
+                        placeholder="Please describe your project, timeline, and any specific requirements..."
+                        required
+                      ></textarea>
+                    </div>
+                    
+                    <button 
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full px-8 py-4 text-white font-bold text-lg rounded-xl shadow-luxury hover:shadow-luxury-xl hover:scale-105 transition-all duration-500 group disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                      style={{background: 'linear-gradient(to right, #156a89, #64748b)'}}
+                    >
+                      <div className="flex items-center justify-center">
+                        {isSubmitting ? (
+                          <>
+                            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-3"></div>
+                            Sending...
+                          </>
+                        ) : (
+                          <>
+                            Send My Project Details
+                            <Send className="w-6 h-6 ml-3 group-hover:translate-x-1 transition-transform duration-300" />
+                          </>
+                        )}
+                      </div>
+                    </button>
+                  </form>
                 
-                {/* Simplified Contact Options */}
-                <div className="mt-8 pt-8 border-t border-gray-200">
-                  <p className="text-center text-slate-600 mb-4 text-lg font-semibold">Prefer to call? Get instant response:</p>
-                  <div className="flex flex-col gap-3 justify-center">
-                    <a 
-                      href="tel:4062315697"
-                      className="flex items-center justify-center px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-black rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
-                    >
-                      <Phone className="w-6 h-6 mr-3 animate-pulse" />
-                      CALL JOE NOW
-                    </a>
-                    <a 
-                      href="sms:4062315697"
-                      className="flex items-center justify-center px-6 py-3 bg-custom-blue-light hover:bg-custom-blue text-custom-blue hover:text-white font-semibold rounded-xl transition-all duration-300"
-                    >
-                      <Mail className="w-5 h-5 mr-2" />
-                      Text Joe
-                    </a>
+                  {/* Simplified Contact Options */}
+                  <div className="mt-8 pt-8 border-t border-gray-200">
+                    <p className="text-center text-slate-600 mb-4 text-lg font-semibold">Prefer to call? Get instant response:</p>
+                    <div className="flex flex-col gap-3 justify-center">
+                      <a 
+                        href="tel:4062315697"
+                        className="flex items-center justify-center px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-black rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                      >
+                        <Phone className="w-6 h-6 mr-3 animate-pulse" />
+                        CALL JOE NOW
+                      </a>
+                      <a 
+                        href="sms:4062315697"
+                        className="flex items-center justify-center px-6 py-3 bg-custom-blue-light hover:bg-custom-blue text-custom-blue hover:text-white font-semibold rounded-xl transition-all duration-300"
+                      >
+                        <Mail className="w-5 h-5 mr-2" />
+                        Text Joe
+                      </a>
+                    </div>
                   </div>
-                </div>
                 </div>
               </div>
             </div>
