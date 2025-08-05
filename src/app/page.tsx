@@ -137,7 +137,7 @@ export default function ZandersHandymanHomePage() {
         script.async = true
         script.onload = () => {
           if (window.emailjs) {
-            window.emailjs.init("YOUR_PUBLIC_KEY") // Replace with your actual public key
+            window.emailjs.init("YUy65pOlPYMZwB4q5") // Replace with your actual public key
             console.log('EmailJS initialized successfully')
           }
         }
@@ -146,7 +146,7 @@ export default function ZandersHandymanHomePage() {
         }
         document.head.appendChild(script)
       } else if (window.emailjs) {
-        window.emailjs.init("YOUR_PUBLIC_KEY") // Replace with your actual public key
+        window.emailjs.init("YUy65pOlPYMZwB4q5") // Replace with your actual public key
       }
     }
 
