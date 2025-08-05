@@ -137,16 +137,24 @@ export default function ZandersHandymanHomePage() {
         script.async = true
         script.onload = () => {
           if (window.emailjs) {
-            window.emailjs.init("YUy65pOlPYMZwB4q5") // Replace with your actual public key
-            console.log('EmailJS initialized successfully')
+            // Initialize with actual public key
+            window.emailjs.init("YUy65pOlPYMZwB4q5") 
+            console.log('✅ EmailJS initialized with PUBLIC KEY: YUy65pOlPYMZwB4q5')
+            console.log('🔑 Service ID: service_7webk2q')
+            console.log('📧 Templates: customer_confirmation, joe_notification')
+            console.log('🌐 Current domain:', window.location.hostname)
           }
         }
         script.onerror = () => {
-          console.error('Failed to load EmailJS')
+          console.error('❌ Failed to load EmailJS script')
         }
         document.head.appendChild(script)
       } else if (window.emailjs) {
-        window.emailjs.init("YUy65pOlPYMZwB4q5") // Replace with your actual public key
+        window.emailjs.init("YUy65pOlPYMZwB4q5") 
+        console.log('✅ EmailJS already loaded with PUBLIC KEY: YUy65pOlPYMZwB4q5')
+        console.log('🔑 Service ID: service_7webk2q')
+        console.log('📧 Templates: customer_confirmation, joe_notification')
+        console.log('🌐 Current domain:', window.location.hostname)
       }
     }
 
@@ -257,16 +265,16 @@ export default function ZandersHandymanHomePage() {
       }
 
       console.log('📧 Sending emails with template params:', templateParams)
-      console.log('🔑 Using service ID: service_7webk2')
+      console.log('🔑 Using service ID: service_7webk2q')
 
-      // Send customer confirmation email
+      // Send customer confirmation email - ACTUAL VALUES
       console.log('📤 Sending customer confirmation email...')
-      const customerResult = await window.emailjs.send('service_7webk2', 'customer_confirmation', templateParams)
+      const customerResult = await window.emailjs.send('service_7webk2q', 'customer_confirmation', templateParams)
       console.log('✅ Customer confirmation sent successfully!', customerResult)
       
-      // Send Joe's notification email
+      // Send Joe's notification email - ACTUAL VALUES
       console.log('📤 Sending Joe notification email...')
-      const joeResult = await window.emailjs.send('service_7webk2', 'joe_notification', templateParams)
+      const joeResult = await window.emailjs.send('service_7webk2q', 'joe_notification', templateParams)
       console.log('✅ Joe notification sent successfully!', joeResult)
       
       // Success
