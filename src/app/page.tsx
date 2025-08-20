@@ -30,6 +30,7 @@ interface FormData {
 export default function ZandersHandymanHomePage() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [currentPortfolioImage, setCurrentPortfolioImage] = useState(0)
+  const [currentTimelineImage, setCurrentTimelineImage] = useState(0)
   const [mounted, setMounted] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -123,7 +124,26 @@ export default function ZandersHandymanHomePage() {
     "/images/projects/BathroomAppliance.webp",
     "/images/projects/Staircase.webp", 
     "/images/projects/Patio.webp",
-    "/images/projects/Staircase2.webp"
+    "/images/projects/Staircase2.webp",
+    "/images/projects/WindowSill.JPEG",
+    "/images/projects/Zander.JPEG"
+  ]
+
+  // Project timeline images from Projects2 folder
+  const timelineImages = [
+    "/images/Projects2/DoorRoof1.JPEG",
+    "/images/Projects2/DooRoof2.JPEG",
+    "/images/Projects2/DoorRoof3.JPEG",
+    "/images/Projects2/DoorRoof4.JPEG",
+    "/images/Projects2/Door_Before_1.JPEG",
+    "/images/Projects2/Door_Middle_1.JPEG",
+    "/images/Projects2/Door_After_1.JPEG",
+    "/images/Projects2/Door_After_2.JPEG",
+    "/images/Projects2/Gutter1.JPEG",
+    "/images/Projects2/Gutter2.JPEG",
+    "/images/Projects2/Wall1.JPEG",
+    "/images/Projects2/Wall2.JPEG",
+    "/images/Projects2/Wall3.JPEG"
   ]
 
   useEffect(() => {
@@ -170,6 +190,11 @@ export default function ZandersHandymanHomePage() {
       setCurrentPortfolioImage((prev) => (prev + 1) % portfolioImages.length)
     }, 4000)
 
+    // Auto-advance timeline images every 3 seconds
+    const timelineInterval = setInterval(() => {
+      setCurrentTimelineImage((prev) => (prev + 1) % timelineImages.length)
+    }, 3000)
+
     // Enhanced scroll logic for smart header
     const handleScroll = () => {
       const currentScrollY = window.scrollY
@@ -206,10 +231,11 @@ export default function ZandersHandymanHomePage() {
     return () => {
       clearInterval(slideInterval)
       clearInterval(portfolioInterval)
+      clearInterval(timelineInterval)
       window.removeEventListener('scroll', handleScroll)
       window.removeEventListener('mousemove', handleMouseMove)
     }
-  }, [heroImages.length, portfolioImages.length])
+  }, [heroImages.length, portfolioImages.length, timelineImages.length])
 
   // Handle form input changes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -1086,7 +1112,7 @@ export default function ZandersHandymanHomePage() {
             </p>
           </div>
 
-          {/* Split Layout: Form + Photo Carousel */}
+          {/* Split Layout: Form + Portfolio Carousel */}
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-16 items-start">
             
             {/* EmailJS Contact Form with Pattern Background */}
@@ -1262,35 +1288,56 @@ export default function ZandersHandymanHomePage() {
               </div>
             </div>
             
-            {/* Photo Carousel */}
+            {/* Portfolio Carousel - Finished Projects */}
             <div className="space-y-8">
               <div className="relative">
-                <div className="aspect-[4/3] rounded-3xl overflow-hidden shadow-luxury-xl">
-                  {portfolioImages.map((image, index) => (
-                    <div
-                      key={index}
-                      className={`absolute inset-0 transition-all duration-1000 ${
-                        index === currentPortfolioImage ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
-                      }`}
-                    >
-                      <Image
-                        src={image}
-                        alt={`Montana Handyman Project ${index + 1}`}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                      />
+                {/* Professional Frame Container */}
+                <div className="relative p-4 bg-gradient-to-br from-white via-gray-50 to-blue-50 rounded-3xl shadow-luxury-xl">
+                  {/* Inner Border */}
+                  <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-luxury border-4 border-white">
+                    {portfolioImages.map((image, index) => (
+                      <div
+                        key={index}
+                        className={`absolute inset-0 transition-all duration-1000 ${
+                          index === currentPortfolioImage ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
+                        }`}
+                      >
+                        <Image
+                          src={image}
+                          alt={`Montana Handyman Project ${index + 1}`}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                        />
+                      </div>
+                    ))}
+                    
+                    {/* Project Info Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent"></div>
+                    <div className="absolute bottom-8 left-8 text-white">
+                      <div className="bg-custom-blue text-white text-sm font-bold px-3 py-1 rounded-full mb-3 inline-block shadow-lg">
+                        PROJECT {currentPortfolioImage + 1} OF {portfolioImages.length}
+                      </div>
+                      <h4 className="text-2xl font-bold mb-2 text-shadow-luxury">Professional Montana Craftsmanship</h4>
+                      <p className="text-gray-200 text-shadow-luxury">Quality work that speaks for itself</p>
                     </div>
-                  ))}
-                  
-                  {/* Project Info Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent"></div>
-                  <div className="absolute bottom-8 left-8 text-white">
-                    <div className="bg-custom-blue text-white text-sm font-bold px-3 py-1 rounded-full mb-3 inline-block">
-                      PROJECT {currentPortfolioImage + 1} OF {portfolioImages.length}
-                    </div>
-                    <h4 className="text-2xl font-bold mb-2">Professional Montana Craftsmanship</h4>
-                    <p className="text-gray-200">Quality work that speaks for itself</p>
+
+                    {/* Corner Accents */}
+                    <div className="absolute top-4 left-4 w-10 h-10 border-l-4 border-t-4 border-white/50 rounded-tl-lg"></div>
+                    <div className="absolute top-4 right-4 w-10 h-10 border-r-4 border-t-4 border-white/50 rounded-tr-lg"></div>
+                    <div className="absolute bottom-4 left-4 w-10 h-10 border-l-4 border-b-4 border-white/50 rounded-bl-lg"></div>
+                    <div className="absolute bottom-4 right-4 w-10 h-10 border-r-4 border-b-4 border-white/50 rounded-br-lg"></div>
+                  </div>
+
+                  {/* Decorative Frame Elements */}
+                  <div className="absolute -top-2 -left-2 w-6 h-6 bg-custom-blue rounded-full shadow-lg border-4 border-white"></div>
+                  <div className="absolute -top-2 -right-2 w-6 h-6 bg-slate-600 rounded-full shadow-lg border-4 border-white"></div>
+                  <div className="absolute -bottom-2 -left-2 w-6 h-6 bg-slate-600 rounded-full shadow-lg border-4 border-white"></div>
+                  <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-custom-blue rounded-full shadow-lg border-4 border-white"></div>
+
+                  {/* Professional Badge */}
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-white rounded-full px-4 py-2 shadow-luxury border-2 border-custom-blue">
+                    <div className="text-custom-blue font-bold text-xs tracking-wide">COMPLETED WORK</div>
                   </div>
                 </div>
                 
@@ -1325,85 +1372,191 @@ export default function ZandersHandymanHomePage() {
                   </button>
                 </div>
               </div>
-              
-              {/* Project Stats with Enhanced Design */}
-              <div className="grid grid-cols-3 gap-4">
-                <div className="relative bg-white rounded-2xl p-6 text-center shadow-lg border border-gray-100 overflow-hidden group hover:scale-105 transition-transform duration-300">
-                  <div className="absolute inset-0 opacity-15">
-                    <Image
-                      src="/images/patterns/montana-blueprint-pattern.png"
-                      alt=""
-                      fill
-                      className="object-cover object-center filter sepia contrast-125 hue-rotate-180 brightness-90 saturate-125"
-                      sizes="100%"
-                    />
-                  </div>
-                  <div className="absolute inset-0 bg-custom-blue/5"></div>
-                  <div className="relative z-10">
-                    <div className="text-2xl font-black text-custom-blue mb-2">500+</div>
-                    <div className="text-sm font-semibold text-slate-600">Projects Complete</div>
-                  </div>
-                  <div className="absolute top-2 right-2 w-4 h-4 border border-custom-blue/20 rounded-full"></div>
-                </div>
-                <div className="relative bg-white rounded-2xl p-6 text-center shadow-lg border border-gray-100 overflow-hidden group hover:scale-105 transition-transform duration-300">
-                  <div className="absolute inset-0 opacity-15">
-                    <Image
-                      src="/images/patterns/montana-blueprint-pattern.png"
-                      alt=""
-                      fill
-                      className="object-cover object-center filter sepia contrast-125 hue-rotate-180 brightness-90 saturate-125"
-                      sizes="100%"
-                    />
-                  </div>
-                  <div className="absolute inset-0 bg-custom-blue/5"></div>
-                  <div className="relative z-10">
-                    <div className="text-2xl font-black text-slate-700 mb-2">100%</div>
-                    <div className="text-sm font-semibold text-slate-600">Satisfaction Rate</div>
-                  </div>
-                  <div className="absolute top-2 right-2 w-4 h-4 border border-slate-600/20 rounded-full"></div>
-                </div>
-                <div className="relative bg-white rounded-2xl p-6 text-center shadow-lg border border-gray-100 overflow-hidden group hover:scale-105 transition-transform duration-300">
-                  <div className="absolute inset-0 opacity-15">
-                    <Image
-                      src="/images/patterns/montana-blueprint-pattern.png"
-                      alt=""
-                      fill
-                      className="object-cover object-center filter sepia contrast-125 hue-rotate-180 brightness-90 saturate-125"
-                      sizes="100%"
-                    />
-                  </div>
-                  <div className="absolute inset-0 bg-blue-600/5"></div>
-                  <div className="relative z-10">
-                    <div className="text-2xl font-black text-gray-600 mb-2">10+</div>
-                    <div className="text-sm font-semibold text-slate-600">Years Experience</div>
-                  </div>
-                  <div className="absolute top-2 right-2 w-4 h-4 border border-gray-600/20 rounded-full"></div>
-                </div>
+            </div>
+          </div>
+
+          {/* Project Timeline Section - Full Width Below */}
+          <div className="mt-24 space-y-12">
+            <div className="text-center space-y-6">
+              <div className="inline-flex items-center px-6 py-3 bg-custom-blue-light text-custom-blue font-bold text-sm uppercase tracking-wide rounded-full border border-custom-blue-light">
+                <Clock className="w-4 h-4 mr-2" />
+                Project Process Gallery
               </div>
-              
-              {/* Montana Guarantee Badge with Pattern */}
-              <div 
-                className="relative rounded-3xl p-8 text-white text-center shadow-luxury overflow-hidden"
-                style={{background: 'linear-gradient(to bottom right, #1e293b, #156a89)'}}
-              >
-                <div className="absolute inset-0 opacity-10">
-                  <Image
-                    src="/images/backgrounds/montana-mountains-silhouette.png"
-                    alt=""
-                    fill
-                    className="object-cover object-center"
-                    sizes="100%"
-                  />
+              <h3 className="text-4xl md:text-5xl font-black text-slate-800 leading-tight">
+                See Our Montana Projects
+                <br />
+                <span className="text-gradient-blue-luxury">
+                  In Action
+                </span>
+              </h3>
+              <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+                Watch our <strong className="text-custom-blue">professional process</strong> unfold through 
+                <strong className="text-slate-700"> real Montana project images</strong>.
+              </p>
+            </div>
+            
+            <div className="max-w-4xl mx-auto">
+              <div className="relative">
+                {/* Professional Frame Container */}
+                <div className="relative p-4 bg-gradient-to-br from-white via-gray-50 to-blue-50 rounded-3xl shadow-luxury-xl">
+                  {/* Inner Border */}
+                  <div className="relative aspect-[16/10] rounded-2xl overflow-hidden shadow-luxury border-4 border-white">
+                    {timelineImages.map((image, index) => (
+                      <div
+                        key={index}
+                        className={`absolute inset-0 transition-all duration-1000 ${
+                          index === currentTimelineImage ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
+                        }`}
+                      >
+                        <Image
+                          src={image}
+                          alt={`Project Process ${index + 1}`}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 100vw, 80vw"
+                        />
+                      </div>
+                    ))}
+                    
+                    {/* Timeline Info Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent"></div>
+                    <div className="absolute bottom-8 left-8 text-white">
+                      <div className="bg-custom-blue text-white text-sm font-bold px-4 py-2 rounded-full mb-3 inline-block shadow-lg">
+                        IMAGE {currentTimelineImage + 1} OF {timelineImages.length}
+                      </div>
+                      <h4 className="text-3xl font-bold mb-3 text-shadow-luxury">Montana Craftsmanship Process</h4>
+                      <p className="text-gray-200 text-lg text-shadow-luxury">Professional process and attention to detail</p>
+                    </div>
+
+                    {/* Corner Accents */}
+                    <div className="absolute top-4 left-4 w-12 h-12 border-l-4 border-t-4 border-white/50 rounded-tl-lg"></div>
+                    <div className="absolute top-4 right-4 w-12 h-12 border-r-4 border-t-4 border-white/50 rounded-tr-lg"></div>
+                    <div className="absolute bottom-4 left-4 w-12 h-12 border-l-4 border-b-4 border-white/50 rounded-bl-lg"></div>
+                    <div className="absolute bottom-4 right-4 w-12 h-12 border-r-4 border-b-4 border-white/50 rounded-br-lg"></div>
+                  </div>
+
+                  {/* Decorative Frame Elements */}
+                  <div className="absolute -top-2 -left-2 w-8 h-8 bg-custom-blue rounded-full shadow-lg border-4 border-white"></div>
+                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-slate-600 rounded-full shadow-lg border-4 border-white"></div>
+                  <div className="absolute -bottom-2 -left-2 w-8 h-8 bg-slate-600 rounded-full shadow-lg border-4 border-white"></div>
+                  <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-custom-blue rounded-full shadow-lg border-4 border-white"></div>
+
+                  {/* Professional Badge */}
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-white rounded-full px-6 py-2 shadow-luxury border-2 border-custom-blue">
+                    <div className="text-custom-blue font-bold text-sm tracking-wide">MONTANA PROFESSIONAL</div>
+                  </div>
                 </div>
-                <div className="relative z-10">
-                  <Shield className="w-12 h-12 mx-auto mb-4 text-blue-200" />
-                  <h4 className="text-xl font-bold mb-2">Montana Work Ethic Guarantee</h4>
-                  <p className="text-blue-100">Professional, reliable, and trusted by Montana's best</p>
+                
+                {/* Timeline Navigation */}
+                <div className="flex justify-center items-center space-x-6 mt-8">
+                  <button
+                    onClick={() => setCurrentTimelineImage(currentTimelineImage === 0 ? timelineImages.length - 1 : currentTimelineImage - 1)}
+                    className="p-4 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 hover:scale-110"
+                  >
+                    <ChevronDown className="w-6 h-6 text-slate-600 rotate-90" />
+                  </button>
+                  
+                  <div className="flex space-x-2">
+                    {timelineImages.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setCurrentTimelineImage(index)}
+                        className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                          index === currentTimelineImage 
+                            ? 'bg-custom-blue scale-150' 
+                            : 'bg-gray-300 hover:bg-gray-400'
+                        }`}
+                      />
+                    ))}
+                  </div>
+                  
+                  <button
+                    onClick={() => setCurrentTimelineImage((currentTimelineImage + 1) % timelineImages.length)}
+                    className="p-4 bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 hover:scale-110"
+                  >
+                    <ChevronDown className="w-6 h-6 text-slate-600 -rotate-90" />
+                  </button>
                 </div>
-                <div className="absolute top-4 right-4 w-6 h-6 border border-blue-200/30 rounded-full"></div>
-                <div className="absolute bottom-4 left-4 w-4 h-4 border border-white/20 rounded-full"></div>
               </div>
             </div>
+          </div>
+
+          {/* Project Stats with Enhanced Design */}
+          <div className="grid grid-cols-3 gap-6 max-w-4xl mx-auto mt-16">
+            <div className="relative bg-white rounded-2xl p-8 text-center shadow-lg border border-gray-100 overflow-hidden group hover:scale-105 transition-transform duration-300">
+              <div className="absolute inset-0 opacity-15">
+                <Image
+                  src="/images/patterns/montana-blueprint-pattern.png"
+                  alt=""
+                  fill
+                  className="object-cover object-center filter sepia contrast-125 hue-rotate-180 brightness-90 saturate-125"
+                  sizes="100%"
+                />
+              </div>
+              <div className="absolute inset-0 bg-custom-blue/5"></div>
+              <div className="relative z-10">
+                <div className="text-3xl font-black text-custom-blue mb-3">500+</div>
+                <div className="text-sm font-semibold text-slate-600">Projects Complete</div>
+              </div>
+              <div className="absolute top-2 right-2 w-4 h-4 border border-custom-blue/20 rounded-full"></div>
+            </div>
+            <div className="relative bg-white rounded-2xl p-8 text-center shadow-lg border border-gray-100 overflow-hidden group hover:scale-105 transition-transform duration-300">
+              <div className="absolute inset-0 opacity-15">
+                <Image
+                  src="/images/patterns/montana-blueprint-pattern.png"
+                  alt=""
+                  fill
+                  className="object-cover object-center filter sepia contrast-125 hue-rotate-180 brightness-90 saturate-125"
+                  sizes="100%"
+                />
+              </div>
+              <div className="absolute inset-0 bg-custom-blue/5"></div>
+              <div className="relative z-10">
+                <div className="text-3xl font-black text-slate-700 mb-3">100%</div>
+                <div className="text-sm font-semibold text-slate-600">Satisfaction Rate</div>
+              </div>
+              <div className="absolute top-2 right-2 w-4 h-4 border border-slate-600/20 rounded-full"></div>
+            </div>
+            <div className="relative bg-white rounded-2xl p-8 text-center shadow-lg border border-gray-100 overflow-hidden group hover:scale-105 transition-transform duration-300">
+              <div className="absolute inset-0 opacity-15">
+                <Image
+                  src="/images/patterns/montana-blueprint-pattern.png"
+                  alt=""
+                  fill
+                  className="object-cover object-center filter sepia contrast-125 hue-rotate-180 brightness-90 saturate-125"
+                  sizes="100%"
+                />
+              </div>
+              <div className="absolute inset-0 bg-blue-600/5"></div>
+              <div className="relative z-10">
+                <div className="text-3xl font-black text-gray-600 mb-3">10+</div>
+                <div className="text-sm font-semibold text-slate-600">Years Experience</div>
+              </div>
+              <div className="absolute top-2 right-2 w-4 h-4 border border-gray-600/20 rounded-full"></div>
+            </div>
+          </div>
+          
+          {/* Montana Guarantee Badge with Pattern */}
+          <div 
+            className="relative rounded-3xl p-8 text-white text-center shadow-luxury overflow-hidden max-w-4xl mx-auto mt-12"
+            style={{background: 'linear-gradient(to bottom right, #1e293b, #156a89)'}}
+          >
+            <div className="absolute inset-0 opacity-10">
+              <Image
+                src="/images/backgrounds/montana-mountains-silhouette.png"
+                alt=""
+                fill
+                className="object-cover object-center"
+                sizes="100%"
+              />
+            </div>
+            <div className="relative z-10">
+              <Shield className="w-12 h-12 mx-auto mb-4 text-blue-200" />
+              <h4 className="text-xl font-bold mb-2">Montana Work Ethic Guarantee</h4>
+              <p className="text-blue-100">Professional, reliable, and trusted by Montana's best</p>
+            </div>
+            <div className="absolute top-4 right-4 w-6 h-6 border border-blue-200/30 rounded-full"></div>
+            <div className="absolute bottom-4 left-4 w-4 h-4 border border-white/20 rounded-full"></div>
           </div>
         </div>
       </section>
