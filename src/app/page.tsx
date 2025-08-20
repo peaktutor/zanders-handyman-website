@@ -1312,9 +1312,9 @@ export default function ZandersHandymanHomePage() {
                       </div>
                     ))}
                     
-                    {/* Project Info Overlay */}
+                    {/* Project Info Overlay - Hidden on Mobile */}
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent"></div>
-                    <div className="absolute bottom-8 left-8 text-white">
+                    <div className="absolute bottom-8 left-8 text-white hidden md:block">
                       <div className="bg-custom-blue text-white text-sm font-bold px-3 py-1 rounded-full mb-3 inline-block shadow-lg">
                         PROJECT {currentPortfolioImage + 1} OF {portfolioImages.length}
                       </div>
@@ -1418,9 +1418,9 @@ export default function ZandersHandymanHomePage() {
                       </div>
                     ))}
                     
-                    {/* Timeline Info Overlay */}
+                    {/* Timeline Info Overlay - Hidden on Mobile */}
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent"></div>
-                    <div className="absolute bottom-8 left-8 text-white">
+                    <div className="absolute bottom-8 left-8 text-white hidden md:block">
                       <div className="bg-custom-blue text-white text-sm font-bold px-4 py-2 rounded-full mb-3 inline-block shadow-lg">
                         IMAGE {currentTimelineImage + 1} OF {timelineImages.length}
                       </div>
@@ -1481,9 +1481,9 @@ export default function ZandersHandymanHomePage() {
             </div>
           </div>
 
-          {/* Project Stats with Enhanced Design */}
-          <div className="grid grid-cols-3 gap-6 max-w-4xl mx-auto mt-16">
-            <div className="relative bg-white rounded-2xl p-8 text-center shadow-lg border border-gray-100 overflow-hidden group hover:scale-105 transition-transform duration-300">
+          {/* Project Stats with Enhanced Design - Mobile Optimized */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto mt-16">
+            <div className="relative bg-white rounded-2xl p-6 sm:p-8 text-center shadow-lg border border-gray-100 overflow-hidden group hover:scale-105 transition-transform duration-300">
               <div className="absolute inset-0 opacity-15">
                 <Image
                   src="/images/patterns/montana-blueprint-pattern.png"
@@ -1495,12 +1495,12 @@ export default function ZandersHandymanHomePage() {
               </div>
               <div className="absolute inset-0 bg-custom-blue/5"></div>
               <div className="relative z-10">
-                <div className="text-3xl font-black text-custom-blue mb-3">500+</div>
-                <div className="text-sm font-semibold text-slate-600">Projects Complete</div>
+                <div className="text-2xl sm:text-3xl font-black text-custom-blue mb-2 sm:mb-3">500+</div>
+                <div className="text-xs sm:text-sm font-semibold text-slate-600">Projects Complete</div>
               </div>
               <div className="absolute top-2 right-2 w-4 h-4 border border-custom-blue/20 rounded-full"></div>
             </div>
-            <div className="relative bg-white rounded-2xl p-8 text-center shadow-lg border border-gray-100 overflow-hidden group hover:scale-105 transition-transform duration-300">
+            <div className="relative bg-white rounded-2xl p-6 sm:p-8 text-center shadow-lg border border-gray-100 overflow-hidden group hover:scale-105 transition-transform duration-300">
               <div className="absolute inset-0 opacity-15">
                 <Image
                   src="/images/patterns/montana-blueprint-pattern.png"
@@ -1512,12 +1512,12 @@ export default function ZandersHandymanHomePage() {
               </div>
               <div className="absolute inset-0 bg-custom-blue/5"></div>
               <div className="relative z-10">
-                <div className="text-3xl font-black text-slate-700 mb-3">100%</div>
-                <div className="text-sm font-semibold text-slate-600">Satisfaction Rate</div>
+                <div className="text-2xl sm:text-3xl font-black text-slate-700 mb-2 sm:mb-3">100%</div>
+                <div className="text-xs sm:text-sm font-semibold text-slate-600">Satisfaction Rate</div>
               </div>
               <div className="absolute top-2 right-2 w-4 h-4 border border-slate-600/20 rounded-full"></div>
             </div>
-            <div className="relative bg-white rounded-2xl p-8 text-center shadow-lg border border-gray-100 overflow-hidden group hover:scale-105 transition-transform duration-300">
+            <div className="relative bg-white rounded-2xl p-6 sm:p-8 text-center shadow-lg border border-gray-100 overflow-hidden group hover:scale-105 transition-transform duration-300">
               <div className="absolute inset-0 opacity-15">
                 <Image
                   src="/images/patterns/montana-blueprint-pattern.png"
@@ -1529,8 +1529,8 @@ export default function ZandersHandymanHomePage() {
               </div>
               <div className="absolute inset-0 bg-blue-600/5"></div>
               <div className="relative z-10">
-                <div className="text-3xl font-black text-gray-600 mb-3">10+</div>
-                <div className="text-sm font-semibold text-slate-600">Years Experience</div>
+                <div className="text-2xl sm:text-3xl font-black text-gray-600 mb-2 sm:mb-3">10+</div>
+                <div className="text-xs sm:text-sm font-semibold text-slate-600">Years Experience</div>
               </div>
               <div className="absolute top-2 right-2 w-4 h-4 border border-gray-600/20 rounded-full"></div>
             </div>
